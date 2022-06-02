@@ -1,0 +1,7 @@
+---
+- name: "Set up monitoring"
+  hosts: "{{ target if target is defined else 'monitoring_servers' }}"
+  become: true
+
+  roles:
+    - prometheus 
