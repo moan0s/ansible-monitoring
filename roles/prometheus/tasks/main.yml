@@ -1,0 +1,21 @@
+---
+
+- include: preflight.yml
+  tags:
+    - prometheus_configure
+    - prometheus_install
+    - prometheus_run
+    - install
+    - all
+
+- import_tasks: "{{ role_path }}/tasks/install.yml"
+  when: "prometheus_enabled|bool"
+  tags:
+    - install
+    - all
+
+- import_tasks: "{{ role_path }}/tasks/uninstall.yml"
+  when: "not prometheus_enabled|bool"
+  tags:
+    - install
+    - all

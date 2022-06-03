@@ -1,0 +1,28 @@
+[Unit]
+Description=Prometheus
+After=network-online.target
+Requires=local-fs.target
+After=local-fs.target
+
+[Service]
+Type=simple
+WorkingDirectory=/var/prometheus/
+ExecStart={{ _prometheus_binary_install_dir }}/prometheus \
+  --storage.tsdb.path={{ prometheus_data_dir }} \
+  --storage.tsdb.retention.time={{ prometheus_storage_retention }} \
+  --storage.tsdb.retention.size={{ prometheus_storage_retention_size }} \
+  --web.config.file={{ prometheus_config_dir }}/web.yml \
+  --web.console.libraries={{ prometheus_config_dir }}/console_libraries \
+  --web.console.templates={{ prometheus_config_dir }}/consoles \
+  --web.listen-address={{ prometheus_web_listen_address }} \
+  --web.external-url={{ prometheus_web_external_url }} \
+  --config.file={{ prometheus_config_dir }}/prometheus.yml
+User={{ prometheus_user }}
+Group={{ prometheus_group }}
+
+Restart=always
+RestartSec=30
+SyslogIdentifier=prometheus
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,15 @@
+---
+prometheus_enabled: true
+prometheus_version: 2.36.0
+prometheus_binary_local_dir: ""
+prometheus_user: prometheus
+prometheus_group: "{{ prometheus_user }}"
+prometheus_data_dir: /var/prometheus
+prometheus_config_dir: /etc/prometheus
+prometheus_port: 9090
+prometheus_web_listen_address: "0.0.0.0:{{ prometheus_port }}"
+prometheus_storage_retention: "30d"
+prometheus_storage_retention_size: "0"
+go_arch: amd64
+_prometheus_binary_install_dir: '/usr/local/bin'
+prometheus_web_external_url: ''
