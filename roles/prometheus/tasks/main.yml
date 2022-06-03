@@ -14,6 +14,13 @@
     - install
     - all
 
+- import_tasks: "{{ role_path }}/tasks/configure.yml"
+  when: "prometheus_enabled|bool"
+  tags:
+    - install
+    - all
+
+
 - import_tasks: "{{ role_path }}/tasks/uninstall.yml"
   when: "not prometheus_enabled|bool"
   tags:
