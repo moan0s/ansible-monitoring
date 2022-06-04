@@ -2,7 +2,6 @@
 - name: restart prometheus
   become: true
   systemd:
-    daemon_reload: true
     name: prometheus
     state: restarted
 

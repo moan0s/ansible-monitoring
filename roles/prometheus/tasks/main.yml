@@ -16,8 +16,10 @@
 
 - import_tasks: "{{ role_path }}/tasks/configure.yml"
   when: "prometheus_enabled|bool"
+  notify:
+    - restart prometheus
   tags:
-    - install
+    - configure
     - all
 
 
