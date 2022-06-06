@@ -7,6 +7,7 @@ After=local-fs.target
 [Service]
 Type=simple
 WorkingDirectory=/var/prometheus/
+ExecReload=/bin/kill -HUP $MAINPID
 ExecStart={{ _prometheus_binary_install_dir }}/prometheus \
   --storage.tsdb.path={{ prometheus_data_dir }} \
   --storage.tsdb.retention.time={{ prometheus_storage_retention }} \
