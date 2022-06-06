@@ -7,3 +7,4 @@
     - prometheus
     - grafana
     - node_exporter
+    - alertmanager
