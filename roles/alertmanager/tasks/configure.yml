@@ -8,6 +8,17 @@
     group: alertmanager
     mode: 0644
 
+- name: copy alertmanager web config
+  template:
+    force: true
+    src: "{{ alertmanager_web_config_file }}"
+    dest: "{{ alertmanager_config_dir }}/alertmanager_web_config.yml"
+    owner: alertmanager
+    group: alertmanager
+    mode: 0644
+  notify:
+    - restart alertmanager
+
 - name: copy alertmanager config
   template:
     force: true

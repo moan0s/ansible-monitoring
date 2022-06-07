@@ -6,10 +6,11 @@ alertmanager_config_dir: /etc/alertmanager
 alertmanager_db_dir: /var/lib/alertmanager
 
 alertmanager_config_file: 'alertmanager.yml.j2'
+alertmanager_web_config_file: 'alertmanager_web_config.yml.j2'
 
 alertmanager_template_files:
   - alertmanager/templates/*.tmpl
-alertmanager_port: 9090
+alertmanager_port: 9093
 alertmanager_web_listen_address: '0.0.0.0:{{ alertmanager_port }}'
 alertmanager_web_external_url: 'http://localhost:{{ alertmanager_port }}/'
 
@@ -122,3 +123,7 @@ alertmanager_amtool_config_alertmanager_url: "{{ alertmanager_web_external_url }
 
 # Extended output of `amtool` commands, use '' for less verbosity
 alertmanager_amtool_config_output: 'extended'
+
+prometheus_alert_relabel_configs: ""
+
+alertmanager_basic_auth_users: ""
