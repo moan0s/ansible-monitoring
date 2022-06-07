@@ -13,6 +13,7 @@
     - grafana_datasources
     - grafana_notifications
     - grafana_dashboards
+    - grafana
     - all
 
 - include: preflight.yml
@@ -22,24 +23,28 @@
     - grafana_datasources
     - grafana_notifications
     - grafana_dashboards
+    - grafana
     - all
 
 - include: install.yml
   become: true
   tags:
     - grafana_install
+    - grafana
     - all
 
 - include: configure.yml
   become: true
   tags:
     - grafana_configure
+    - grafana
     - all
 
 - include: plugins.yml
   when: grafana_plugins != []
   tags:
     - grafana_configure
+    - grafana
     - all
 
 - name: Restart grafana before configuring datasources and dashboards
@@ -51,6 +56,7 @@
     - grafana_notifications
     - grafana_dashboards
     - grafana_run
+    - grafana
     - all
 
 - name: Wait for grafana to start (http/s)
@@ -65,6 +71,7 @@
     - grafana_notifications
     - grafana_dashboards
     - grafana_run
+    - grafana
     - all
 
 - name: Wait for grafana to start (socket)
@@ -78,6 +85,7 @@
     - grafana_notifications
     - grafana_dashboards
     - grafana_run
+    - grafana
     - all
 
 - include: api_keys.yml
@@ -85,6 +93,7 @@
   tags:
     - grafana_configure
     - grafana_run
+    - grafana
     - all
 
 - include: datasources.yml
@@ -93,6 +102,7 @@
     - grafana_configure
     - grafana_datasources
     - grafana_run
+    - grafana
     - all
 
 - include: notifications.yml
@@ -101,6 +111,7 @@
     - grafana_configure
     - grafana_notifications
     - grafana_run
+    - grafana
     - all
 
 - name: "Check if there are any dashboards in local {{ grafana_dashboards_dir }}"
@@ -111,6 +122,7 @@
     - grafana_configure
     - grafana_dashboards
     - grafana_run
+    - grafana
     - all
 
 - include: dashboards.yml
@@ -119,4 +131,5 @@
     - grafana_configure
     - grafana_dashboards
     - grafana_run
+    - grafana
     - all
