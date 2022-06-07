@@ -6,7 +6,7 @@
 
 - name: Set prometheus external metrics path
   set_fact:
-    prometheus_metrics_path: "/{{ ( prometheus_web_external_url + '/metrics' ) | regex_replace('^(.*://)?(.*?)/') }}"
+    prometheus_metrics_path: "{{ ( prometheus_web_external_url + '/metrics' ) | regex_replace('^(.*://)?(.*?)/') }}"
 
 - block:
     - name: Get latest release
