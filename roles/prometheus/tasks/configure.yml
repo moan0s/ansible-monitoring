@@ -37,13 +37,15 @@
     - reload prometheus
 
 - name: configure Prometheus web
-  copy:
-    content: "{{ prometheus_web_config | to_nice_yaml(indent=2,sort_keys=False) }}"
+  template:
+    src: "{{ prometheus_web_config_file }}"
     dest: "{{ prometheus_config_dir }}/web.yml"
     force: true
     owner: root
     group: prometheus
     mode: 0640
+  notify:
+    - reload prometheus
 
 - name: configure prometheus static targets
   copy:
