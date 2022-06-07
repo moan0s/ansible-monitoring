@@ -1,0 +1,89 @@
+---
+
+
+basic_auth_user: monitoring
+basic_auth_pw: supersecret
+# Can be obtained from password via hash_password.py
+basic_auth_secret: "$2b$12$esvxHDU.miu293E0/gIwB.Rr70TVHyeDXlh.kpvveeXy3c7l9qR/K"
+
+#############################
+## Prometheus Basic Config ##
+#############################
+
+prometheus_web_external_url: "prom.example.de"
+prometheus_web_config:
+  basic_auth_users:
+    user: "{{ basic_auth_user }}"
+    secret: "{{ basic_auth_secret }}"
+prometheus_alertmanager_config:
+  - scheme: https
+    basic_auth:
+     username: "{{ basic_auth_user }}"
+     password: "{{ basic_auth_pw }}"
+    static_configs:
+      - targets: ["alert.example.de"]
+
+##########################
+## Grafana Basic Config ##
+##########################
+grafana_instance: "check.example.de"
+grafana_security:
+  admin_user: admin
+  admin_password: aLL3gro10
+
+###############################
+## Alertmanager Basic Config ##
+###############################
+alertmanager_web_external_url: "https://alert.example.de"
+
+alertmanager_smtp:
+  from: 'monitor@example.de'
+  smarthost: 'example.com:587'
+  auth_username: "monitor@example.com"
+  auth_password: "supersecret"
+
+alertmanager_receivers:
+  - name: default
+    email_configs:
+      - send_resolved: true
+        to: "monitor@example.com"
+
+
+alertmanager_route:
+  group_by: ['alertname', 'cluster', 'service' ]
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 3h
+  receiver: default
+
+prometheus_scrape_configs:
+  - job_name: node_exporter
+    honor_timestamps: true
+    scrape_interval: 10s
+    scrape_timeout: 10s
+    metrics_path: /metrics
+    scheme: http
+    static_configs:
+      - targets:
+          - localhost:9100
+  - job_name: synapse_example
+    honor_timestamps: true
+    scrape_interval: 10s
+    scrape_timeout: 10s
+    metrics_path: _synapse/metrics
+    scheme: https
+    static_configs:
+      - targets:
+          - synapse.example.de
+  - job_name: alertmanager
+    honor_timestamps: true
+    scrape_interval: 10s
+    scrape_timeout: 10s
+    metrics_path: /metrics
+    scheme: https
+    basic_auth:
+     username: "{{ basic_auth_user }}"
+     password: "{{ basic_auth_pw }}"
+    static_configs:
+      - targets:
+          - alert.example.de
