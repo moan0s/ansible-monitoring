@@ -11,6 +11,7 @@
 - import_tasks: "{{ role_path }}/tasks/install.yml"
   when: "prometheus_enabled|bool"
   tags:
+    - prometheus_install
     - prometheus
     - all
 
@@ -19,6 +20,7 @@
   notify:
     - restart prometheus
   tags:
+    - prometheus_configure
     - prometheus
     - all
 
@@ -26,5 +28,6 @@
 - import_tasks: "{{ role_path }}/tasks/uninstall.yml"
   when: "not prometheus_enabled|bool"
   tags:
+    - prometheus_install
     - prometheus
     - all
