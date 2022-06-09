@@ -1,0 +1,20 @@
+[Unit]
+Description=InfluxDB
+
+[Service]
+Type=simple
+WorkingDirectory=/var/influxdb/
+ExecStart={{ _influxdb_binary_install_dir }}/influxd \
+                --bolt-path "/var/influxdb/influxd.bolt" \
+                --engine-path "/var/influxdb/engine"\
+                --reporting-disabled \
+                --log-level debug \
+                --http-bind-address=:{{ influxdb_port }}
+User=influxdb
+Group=influxdb
+Restart=always
+RestartSec=30
+SyslogIdentifier=influxdb
+
+[Install]
+WantedBy=multi-user.target

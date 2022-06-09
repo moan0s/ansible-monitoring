@@ -1,0 +1,12 @@
+---
+influxdb_version: 2.2.0
+influxdb_port: 8086
+
+influxdb_data_dir: "/var/influxdb"
+influxdb_config_dir: "/etc/influxdb"
+influxdb_binary_local_dir: ""
+
+# Internal variables.
+_influxdb_binary_install_dir: "/usr/local/bin"
+_influxdb_system_group: "influxdb"
+_influxdb_system_user: "{{ _influxdb_system_group }}"

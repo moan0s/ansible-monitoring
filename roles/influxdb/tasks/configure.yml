@@ -1,0 +1,27 @@
+---
+- name: Copy the influxdb systemd service file
+  template:
+    src: influxdb.service.j2
+    dest: /etc/systemd/system/influxdb.service
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart influxdb
+
+- block:
+    - name: Create influxdb config directory
+      file:
+        path: "/etc/influxdb"
+        state: directory
+        owner: root
+        group: root
+        mode: u+rwX,g+rwX,o=rX
+
+    - name: Copy the influxdb config file
+      template:
+        src: config.yaml.j2
+        dest: /etc/influxdb/config.yaml
+        owner: root
+        group: root
+        mode: 0644
+      notify: restart influxdb
