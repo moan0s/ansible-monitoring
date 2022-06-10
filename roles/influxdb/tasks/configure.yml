@@ -2,7 +2,7 @@
 - name: Copy the influxdb systemd service file
   template:
     src: influxdb.service.j2
-    dest: /etc/systemd/system/influxdb.service
+    dest: "{{ _influxdb_systemd_path }}/influxdb.service"
     owner: root
     group: root
     mode: 0644

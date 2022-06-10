@@ -1,0 +1,36 @@
+---
+
+- name: Check existence of influxdb service
+  stat:
+    path: "{{ _influxdb_systemd_path }}/influxdb.service"
+  register: influxdb_service_stat
+
+- name: Ensure influxdb is stopped
+  service:
+    name: "influxdb"
+    state: stopped
+    enabled: false
+    daemon_reload: true
+  register: stopping_result
+  when: "influxdb_service_stat.stat.exists|bool"
+
+- name: Ensure influxdb service doesn't exist
+  file:
+    path: "{{ _influxdb_systemd_path }}/influxdb.service"
+    state: absent
+  when: "influxdb_service_stat.stat.exists|bool"
+
+- name: Ensure systemd reloaded after influxdb removal
+  service:
+    daemon_reload: true
+  when: "influxdb_service_stat.stat.exists|bool"
+
+- name: Ensure influxdb config path doesn't exist
+  file:
+    path: "{{ influxdb_config_dir }}"
+    state: absent
+
+- name: Ensure influxdb data path doesn't exist
+  file:
+    path: "{{ influxdb_data_dir }}"
+    state: absent
