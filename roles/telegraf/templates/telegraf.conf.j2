@@ -35,11 +35,7 @@
 ###############################################################################
 
 # HTTP/HTTPS request given an address a method and a timeout
+{% if telegraf_http_ping_urls | string | length %}
 [[inputs.http_response]]
-  ## List of urls to query.
-  urls = ["https://activism.international/",
-  "https://cloud.activism.international/login",
-  "https://matrix.activism.international/#/welcome",
-  "https://bbb.activism.international/easy/",
-  "https://meet.activism.international/",
-  "https://pad.activism.international/"]
+  urls = [{{ telegraf_http_ping_urls }}]
+{% endif %}
