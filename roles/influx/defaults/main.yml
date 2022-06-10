@@ -1,0 +1,6 @@
+---
+influx_version: 2.3.0
+influx_binary_local_dir: ""
+
+# Internal variables.
+_influx_binary_install_dir: "/usr/local/bin"

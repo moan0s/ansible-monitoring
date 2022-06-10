@@ -1,0 +1,18 @@
+---
+- import_tasks: preflight.yml
+  tags:
+    - influx_install
+    - influx
+    - all
+
+- import_tasks: install.yml
+  become: true
+  when:
+    ( not __influx_is_installed.stat.exists ) or
+    ( (__influx_current_version_output.stderr_lines | length > 0) and (__influx_current_version_output.stderr_lines[0].split(" ")[2] != influx_version) ) or
+    ( (__influx_current_version_output.stdout_lines | length > 0) and (__influx_current_version_output.stdout_lines[0].split(" ")[2] != influx_version) ) or
+    ( influx_binary_local_dir | length > 0 )
+  tags:
+    - influx_install
+    - influx
+    - all

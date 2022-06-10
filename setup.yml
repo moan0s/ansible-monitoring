@@ -10,3 +10,4 @@
     - alertmanager
     - influxdb
     - telegraf
+    - influx
