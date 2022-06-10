@@ -1,0 +1,22 @@
+---
+
+- name: Ensure base path exists
+  file:
+    path: "{{ base_data_path }}"
+    state: directory
+    mode: "{{ base_data_path_mode }}"
+  become: true
+  with_items:
+    - "{{ base_data_path }}"
+  tags:
+    - always
+
+- name: Preserve vars.yml on the server for easily restoring if it gets lost later on
+  copy:
+    src: "{{ vars_yml_snapshotting_src }}"
+    dest: "{{ base_data_path }}/vars.yml"
+    mode: '0660'
+  become: true
+  when: "vars_yml_snapshotting_enabled|bool"
+  tags:
+    - always

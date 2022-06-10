@@ -1,0 +1,6 @@
+---
+
+base_data_path: /monitoring
+base_data_path_mode: 750
+vars_yml_snapshotting_enabled: true
+vars_yml_snapshotting_src: "{{ inventory_dir }}/host_vars/{{ inventory_hostname }}/vars.yml"

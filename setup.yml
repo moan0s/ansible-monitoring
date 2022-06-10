@@ -11,3 +11,4 @@
     - influxdb
     - telegraf
     - influx
+    - base
