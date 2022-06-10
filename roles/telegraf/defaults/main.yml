@@ -1,0 +1,11 @@
+---
+telegraf_version: 1.22.4
+
+telegraf_data_dir: "/var/telegraf"
+telegraf_config_dir: "/etc/telegraf"
+telegraf_binary_local_dir: ""
+
+# Internal variables.
+_telegraf_binary_install_dir: "/usr/local/bin"
+_telegraf_system_group: "telegraf"
+_telegraf_system_user: "{{ _telegraf_system_group }}"

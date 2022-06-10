@@ -1,0 +1,9 @@
+---
+- name: restart telegraf
+  become: true
+  systemd:
+    daemon_reload: true
+    name: telegraf
+    state: restarted
+  when:
+    - not ansible_check_mode

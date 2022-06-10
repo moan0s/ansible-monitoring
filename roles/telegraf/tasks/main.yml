@@ -1,0 +1,42 @@
+---
+- import_tasks: preflight.yml
+  tags:
+    - telegraf_install
+    - telegraf_configure
+    - telegraf_run
+    - telegraf
+    - all
+
+- import_tasks: install.yml
+  become: true
+  when:
+    ( not __telegraf_is_installed.stat.exists ) or
+    ( (__telegraf_current_version_output.stderr_lines | length > 0) and (__telegraf_current_version_output.stderr_lines[0].split(" ")[2] != telegraf_version) ) or
+    ( (__telegraf_current_version_output.stdout_lines | length > 0) and (__telegraf_current_version_output.stdout_lines[0].split(" ")[2] != telegraf_version) ) or
+    ( telegraf_binary_local_dir | length > 0 )
+  tags:
+    - telegraf_install
+    - telegraf
+    - all
+
+
+- import_tasks: configure.yml
+  become: true
+  tags:
+    - telegraf_configure
+    - telegraf
+    - all
+
+- name: Ensure Telegraf is enabled on boot
+  become: true
+  systemd:
+    daemon_reload: true
+    name: telegraf
+    enabled: true
+    state: started
+  when:
+    - not ansible_check_mode
+  tags:
+    - telegraf_run
+    - telegraf
+    - all

@@ -1,0 +1,16 @@
+[Unit]
+Description=InfluxDB
+
+[Service]
+Type=simple
+WorkingDirectory={{ telegraf_data_dir }}
+ExecStart={{ _telegraf_binary_install_dir }}/telegraf --config {{ telegraf_config_dir }}/telegraf.conf
+User={{ _telegraf_system_user }}
+Group={{ _telegraf_system_group }}
+Restart=always
+RestartSec=30
+SyslogIdentifier=telegraf
+
+[Install]
+WantedBy=multi-user.target
+
