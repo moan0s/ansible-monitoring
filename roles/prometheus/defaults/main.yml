@@ -1,7 +1,7 @@
 ---
 
 prometheus_enabled: true
-prometheus_version: 2.36.1
+prometheus_version: 2.36.2
 prometheus_binary_local_dir: ""
 prometheus_user: prometheus
 prometheus_group: "{{ prometheus_user }}"
