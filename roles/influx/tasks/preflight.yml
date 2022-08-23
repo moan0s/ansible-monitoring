@@ -9,7 +9,7 @@
     - influx_install
 
 - name: Gather currently installed influx version (if any)
-  command: "{{ _influx_binary_install_dir }}/influx --version"
+  command: "{{ _influx_binary_install_dir }}/influx version"
   args:
     warn: false
   changed_when: false
