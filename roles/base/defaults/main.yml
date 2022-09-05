@@ -1,6 +1,15 @@
 ---
 
-base_data_path: /monitoring
-base_data_path_mode: 750
+monitoring_base_data_path: /monitoring
+monitoring_base_data_path_mode: 750
 vars_yml_snapshotting_enabled: true
 vars_yml_snapshotting_src: "{{ inventory_dir }}/host_vars/{{ inventory_hostname }}/vars.yml"
+
+monitoring_local_bin_path: "/usr/local/bin"
+monitoring_host_command_docker: "/usr/bin/env docker"
+monitoring_host_command_sleep: "/usr/bin/env sleep"
+monitoring_host_command_chown: "/usr/bin/env chown"
+monitoring_host_command_systemctl: "/usr/bin/env systemctl"
+monitoring_host_command_sh: "/usr/bin/env sh"
+
+monitoring_docker_network: "monitoring"
