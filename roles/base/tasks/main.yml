@@ -1,5 +1,11 @@
 ---
 
+# This needs to always run, because it populates `monitoring_user_uid` and `monitoring_user_gid`,
+# which are required by many other roles.
+- ansible.builtin.import_tasks: "{{ role_path }}/tasks/setup_monitoring_user.yml"
+  tags:
+    - always
+
 - name: Ensure base path exists
   file:
     path: "{{ monitoring_base_data_path }}"
@@ -20,3 +26,8 @@
   when: "vars_yml_snapshotting_enabled|bool"
   tags:
     - always
+
+- name: Ensure Matrix network is created in Docker
+  community.docker.docker_network:
+    name: "{{ monitoring_docker_network }}"
+    driver: bridge

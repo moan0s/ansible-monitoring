@@ -1,0 +1,13 @@
+---
+
+- ansible.builtin.import_tasks: "{{ role_path }}/tasks/setup_install.yml"
+  when: " uptime_kuma_enabled | bool"
+  tags:
+    - kuma-setup
+    - all
+
+- ansible.builtin.import_tasks: "{{ role_path }}/tasks/setup_uninstall.yml"
+  when: "not uptime_kuma_enabled | bool"
+  tags:
+    - kuma-setup
+    - all

@@ -4,6 +4,7 @@
   become: true
 
   roles:
+    - base
     - prometheus
     - grafana
     - node_exporter
@@ -11,4 +12,4 @@
     - influxdb
     - telegraf
     - influx
-    - base
+    - uptime-kuma

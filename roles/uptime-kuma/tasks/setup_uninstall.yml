@@ -1,0 +1,36 @@
+---
+
+- name: Check existence of uptime-kuma service
+  ansible.builtin.stat:
+    path: "{{ monitoring_systemd_path }}/uptime-kuma.service"
+  register: uptime_kuma_service_stat
+
+- name: Ensure uptime-kuma is stopped
+  ansible.builtin.service:
+    name: uptime-kuma
+    state: stopped
+    enabled: false
+    daemon_reload: true
+  register: stopping_result
+  when: "uptime_kuma_service_stat.stat.exists | bool"
+
+- name: Ensure uptime-kuma.service doesn't exist
+  ansible.builtin.file:
+    path: "{{ monitoring_systemd_path }}/uptime-kuma.service"
+    state: absent
+  when: "uptime_kuma_service_stat.stat.exists | bool"
+
+- name: Ensure systemd reloaded after uptime-kuma.service removal
+  ansible.builtin.service:
+    daemon_reload: true
+  when: "uptime_kuma_service_stat.stat.exists | bool"
+
+- name: Ensure Matrix uptime-kuma paths don't exist
+  ansible.builtin.file:
+    path: "{{ uptime_kuma_base_path }}"
+    state: absent
+
+- name: Ensure uptime-kuma Docker image doesn't exist
+  docker_image:
+    name: "{{ uptime_kuma_docker_image }}"
+    state: absent

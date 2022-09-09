@@ -1,0 +1,28 @@
+#jinja2: lstrip_blocks: "True"
+[Unit]
+Description=Uptime Kuma
+Requires=docker.service
+After=docker.service
+DefaultDependencies=no
+
+[Service]
+Type=simple
+ExecStartPre=-{{ monitoring_host_command_sh }} -c '{{ monitoring_host_command_docker }} kill uptime-kuma 2>/dev/null || true'
+ExecStartPre=-{{ monitoring_host_command_sh }} -c '{{ monitoring_host_command_docker }} rm uptime-kuma 2>/dev/null || true'
+
+ExecStart={{ monitoring_host_command_docker }} run --rm --name uptime-kuma \
+			--log-driver=none \
+			-p {{ uptime_kuma_port }}:{{ _uptime_kuma_container_port }} \
+			--env-file {{ uptime_kuma_env_file }} \
+			-v {{ uptime_kuma_docker_volume }}:/app/data \
+			--network={{ monitoring_docker_network }} \
+			{{ uptime_kuma_docker_image }}
+
+ExecStop=-{{ monitoring_host_command_sh }} -c '{{ monitoring_host_command_docker }} kill uptime-kuma 2>/dev/null || true'
+ExecStop=-{{ monitoring_host_command_sh }} -c '{{ monitoring_host_command_docker }} rm uptime-kuma 2>/dev/null || true'
+Restart=always
+RestartSec=30
+SyslogIdentifier=uptime-kuma
+
+[Install]
+WantedBy=multi-user.target

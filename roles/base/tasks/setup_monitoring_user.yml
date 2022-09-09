@@ -1,0 +1,27 @@
+---
+
+- name: Ensure Monitoring group is created
+  ansible.builtin.group:
+    name: "{{ monitoring_user_groupname }}"
+    gid: "{{ omit if monitoring_user_gid is none else monitoring_user_gid }}"
+    state: present
+  register: monitoring_group
+
+- name: Set Monitoring Group GID Variable
+  ansible.builtin.set_fact:
+    monitoring_user_gid: "{{ monitoring_group.gid }}"
+
+- name: Ensure Monitoring user is created
+  ansible.builtin.user:
+    name: "{{ monitoring_user_username }}"
+    uid: "{{ omit if monitoring_user_uid is none else monitoring_user_uid }}"
+    state: present
+    group: "{{ monitoring_user_groupname }}"
+    home: "{{ monitoring_base_data_path }}"
+    create_home: false
+    system: true
+  register: monitoring_user
+
+- name: Set Monitoring Group UID Variable
+  ansible.builtin.set_fact:
+    monitoring_user_uid: "{{ monitoring_user.uid }}"

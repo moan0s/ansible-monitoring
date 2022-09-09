@@ -1,4 +1,8 @@
 ---
+monitoring_user_username: "monitoring"
+monitoring_user_groupname: "{{ monitoring_user_username }}"
+monitoring_user_gid: ~
+monitoring_user_uid: ~
 
 monitoring_base_data_path: /monitoring
 monitoring_base_data_path_mode: 750
@@ -13,3 +17,6 @@ monitoring_host_command_systemctl: "/usr/bin/env systemctl"
 monitoring_host_command_sh: "/usr/bin/env sh"
 
 monitoring_docker_network: "monitoring"
+monitoring_container_global_registry_prefix: "docker.io/"
+
+monitoring_systemd_path: "/etc/systemd/system"
