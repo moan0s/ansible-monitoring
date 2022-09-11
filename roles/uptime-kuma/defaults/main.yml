@@ -10,9 +10,9 @@ uptime_kuma_docker_src_files_path: "{{ uptime_kuma_base_path }}/docker-src"
 
 uptime_kuma_docker_volume: "uptime-kuma"
 
-uptime_kuma_port: 3031
+uptime_kuma_port: 3001
 # Without configuration it is 3001
-_uptime_kuma_container_port: 3031
+_uptime_kuma_container_port: 3001
 
 uptime_kuma_version: latest
 uptime_kuma_docker_image: "{{ monitoring_container_global_registry_prefix }}louislam/uptime-kuma:{{ uptime_kuma_version }}"
