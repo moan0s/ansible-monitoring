@@ -6,6 +6,10 @@
   tags:
     - always
 
+- ansible.builtin.import_tasks: "{{ role_path }}/tasks/install-docker.yml"
+  tags:
+    - always
+
 - name: Ensure base path exists
   file:
     path: "{{ monitoring_base_data_path }}"

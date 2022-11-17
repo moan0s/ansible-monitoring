@@ -1,0 +1,6 @@
+---
+
+- name: Update repositories cache and install docker.io
+  ansible.builtin.apt:
+    name: "docker.io"
+    update_cache: yes
