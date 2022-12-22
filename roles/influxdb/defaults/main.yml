@@ -1,5 +1,5 @@
 ---
-influxdb_version: 2.2.0
+influxdb_version: 2.6.0
 influxdb_port: 8086
 
 influxdb_enabled: true

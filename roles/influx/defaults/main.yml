@@ -1,5 +1,5 @@
 ---
-influx_version: 2.3.0
+influx_version: 2.6.0
 influx_binary_local_dir: ""
 
 # Internal variables.
