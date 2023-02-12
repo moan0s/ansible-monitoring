@@ -4,12 +4,16 @@
   become: true
 
   roles:
-    - base
-    - prometheus
-    - grafana
-    - node_exporter
-    - alertmanager
-    - influxdb
-    - telegraf
-    - influx
-    - uptime-kuma
+    - custom/base
+    - when: monitoring_playbook_docker_installation_enabled | bool
+      role: galaxy/geerlingguy.docker
+      vars:
+        docker_install_compose: false
+    - custom/prometheus
+    - custom/grafana
+    - custom/node_exporter
+    - custom/alertmanager
+    - custom/influxdb
+    - custom/telegraf
+    - custom/influx
+    - custom/uptime-kuma

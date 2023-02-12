@@ -1,0 +1,11 @@
+---
+
+########################################################################
+#                                                                      #
+# Playbook                                                            #
+#                                                                      #
+########################################################################
+
+# Controls whether to install Docker or not
+# Also see `devture_docker_sdk_for_python_installation_enabled`.
+monitoring_playbook_docker_installation_enabled: true

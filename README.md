@@ -7,7 +7,7 @@ This playbook can deploy a full monitoring stack with
 * Grafana
 * Node Exporter
 * Alertmanager
-
+* Uptime Kuma (self built)
 and possibly
 
 * a MQTT broker
@@ -19,7 +19,7 @@ and possibly
 Install everything with
 
 ```shell
-ansible-playbook -i inventory/hosts setup.yml --tags=all -K
+ansible-playbook -i inventory/hosts setup.yml --tags=all
 ```
 
 

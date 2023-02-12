@@ -1,0 +1,23 @@
+---
+
+- name: Check if telegraf is installed
+  stat:
+    path: "{{ _telegraf_binary_install_dir }}/telegraf"
+  register: __telegraf_is_installed
+  check_mode: false
+  tags:
+    - telegraf_install
+    - telegraf
+    - all
+
+- name: Gather currently installed telegraf version (if any)
+  command: "{{ _telegraf_binary_install_dir }}/telegraf --version"
+  changed_when: false
+  register: __telegraf_current_version_output
+  check_mode: false
+  when: __telegraf_is_installed.stat.exists
+  tags:
+    - telegraf_install
+    - telegraf
+    - all
+    - skip_ansible_lint
